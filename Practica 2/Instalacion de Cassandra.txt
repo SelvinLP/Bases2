@@ -1,0 +1,21 @@
+docker pull cassandra:latest
+docker run -d --name cassandra-node -p 9842:9842 cassandra
+docker exec -it cassandra-node bash
+rm -Rf ~/.cassandra
+cd
+cqlsh
+
+#create keyspace
+CREATE KEYSPACE test_ks WITH replication = {'class' : 'SimpleStrategy', 'replication_factor' : 1};
+
+#use
+
+USE test_ks
+
+#create TABLE
+
+CREATE TABLE test_ks.user_dtl(user_id int PRIMARY KEY, user_name text, city text);
+
+INSERT INTO user_dtl(user_id,user_name,city)VALUES(1,'Omid','Messi');
+
+select * from user_dtl
