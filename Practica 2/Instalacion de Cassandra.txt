@@ -1,9 +1,12 @@
 docker pull cassandra:latest
 docker run -d --name cassandra-node -p 9842:9842 cassandra
 docker exec -it cassandra-node bash
+cd
 rm -Rf ~/.cassandra
 cd
 cqlsh
+
+docker cp 15kDatos_Practica2.csv cassandra-node:/
 
 #create keyspace
 CREATE KEYSPACE test_ks WITH replication = {'class' : 'SimpleStrategy', 'replication_factor' : 1};
