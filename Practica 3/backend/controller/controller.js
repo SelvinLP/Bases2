@@ -1,73 +1,237 @@
 const aws_keys = require('../credentials/credintials');
 const AWS = require('aws-sdk');
-const ddb = new AWS.DynamoDB.DocumentClient(aws_keys.dynamodb);
+const ddb = new AWS.DynamoDB(aws_keys.dynamodb);
 
 //ESTUDIANTE NUEVO
 const newstudent = async(req, res) =>{
-    
-    ddb.update({
-        TableName: "usuario_p1",
-        Key: {
-            id: id_user
-        },
-        UpdateExpression: "SET #albums = :albums",
-        ExpressionAttributeNames: { "#albums": "albums" },
-        ExpressionAttributeValues: {
-            ":albums": albums
+    var params = {
+        TableName: 'estudiantes',
+        Item: {
+          'carnet': {N: req.body.carnet},
+          'cui':    {N: req.body.cui},
+          'nombre':   {S: req.body.nombre},
+          'correo':   {S: req.body.correo},
+          'fechanac':   {S: req.body.fechanac}
         }
-    }, function(err, data) {
+      };
+      
+      ddb.putItem(params, function(err, data) {
         if (err) {
-            console.log('Error saving album: ', err);
+            console.log(err);
             res.send({
-                'message': 'dbd failed',
-                'estado': '400'
-            });
+                status: "error"
+            })
         } else {
-            console.log('Save album success:', data);
-            res.send({
-                'message': 'ddb success',
-                'estado': '200'
+            let paramsres = {
+                TableName: 'estudiantes',
+                Limit: 50 
+            };
+            
+            ddb.scan(paramsres, function(err, data){
+                if(err){
+                    console.log("Error", err);
+                    res.send({
+                        status: "error"
+                    })
+                } else{
+                    res.send({
+                        status: "success",
+                        data: data.Items
+                    })
+                }
             });
         }
-    });
+      });
 
-    res.send({
-        status: "success"
-    })
+   
 }
 
 //CURSO NUEVO
 const newcourse = async(req, res) =>{
-    res.send({
-        status: "success"
-    })
+    var params = {
+        TableName: 'cursos',
+        Item: {
+          'codigo': {N: req.body.codigo},
+          'nombre':   {S: req.body.nombre},
+          'credn':   {N: req.body.credn},
+          'credo':   {N: req.body.credo}
+        }
+      };
+      
+      ddb.putItem(params, function(err, data) {
+        if (err) {
+            console.log(err);
+            res.send({
+                status: "error"
+            })
+        } else {
+            let paramsres = {
+                TableName: 'cursos',
+                Limit: 50 
+            };
+            
+            ddb.scan(paramsres, function(err, data){
+                if(err){
+                    console.log("Error", err);
+                    res.send({
+                        status: "error"
+                    })
+                } else{
+                    res.send({
+                        status: "success",
+                        data: data.Items
+                    })
+                }
+            });
+        }
+      });
 }
 
 //ASIGNACION DE CURSO
 const newasignacion = async(req, res) =>{
-    res.send({
-        status: "success"
-    })
+    var params = {
+        TableName: 'asignacion',
+        Item: {
+          'estudiante': {N: req.body.estudiante},
+          'curso':   {N: req.body.curso},
+          'periodo':   {S: req.body.periodo}
+        }
+      };
+      
+      ddb.putItem(params, function(err, data) {
+        if (err) {
+            console.log(err);
+            res.send({
+                status: "error"
+            })
+        } else {
+            let paramsres = {
+                TableName: 'asignacion',
+                Limit: 50 
+            };
+            
+            ddb.scan(paramsres, function(err, data){
+                if(err){
+                    console.log("Error", err);
+                    res.send({
+                        status: "error"
+                    })
+                } else{
+                    res.send({
+                        status: "success",
+                        data: data.Items
+                    })
+                }
+            });
+        }
+      });
 }
+
 //VISUALIZAR ESTUDIANTE POR CURSO
 const getestudiante = async(req, res) =>{
-    res.send({
-        status: "success"
-    })
+
+    var params = {
+        TableName: 'asignacion',
+        Key: {
+            'curso': {N: req.body.curso},
+            'estudiante': {N: req.body.estudiante}
+        }
+    };
+    
+    ddb.getItem(params, function(err, data) {
+        if (err) {
+            console.log(err);
+            res.send({
+                status: "error",
+                data: []
+            })
+        } else {
+            res.send({
+                status: "success",
+                data: [data]
+            })
+        }
+    });
 }
 
 //REGISTRAR ACTIVIDAD
 const newactivity = async(req, res) =>{
-    res.send({
-        status: "success"
-    })
+    var params = {
+        TableName: 'actividades',
+        Item: {
+          'tipo': {S: req.body.tipo},
+          'fechai':   {S: req.body.fechai},
+          'fechaf':   {S: req.body.fechaf}
+        }
+      };
+      
+      ddb.putItem(params, function(err, data) {
+        if (err) {
+            console.log(err);
+            res.send({
+                status: "error"
+            })
+        } else {
+            let paramsres = {
+                TableName: 'actividades',
+                Limit: 50 
+            };
+            
+            ddb.scan(paramsres, function(err, data){
+                if(err){
+                    console.log("Error", err);
+                    res.send({
+                        status: "error"
+                    })
+                } else{
+                    res.send({
+                        status: "success",
+                        data: data.Items
+                    })
+                }
+            });
+        }
+      });
 }
 
 //INGRESO NOTA ACTIVIDAD
 const newnota = async(req, res) =>{
-    res.send({
-        status: "success"
-    })
+    var params = {
+        TableName: 'notas',
+        Item: {
+          'nota': {N: req.body.nota},
+          'estudiante':   {N: req.body.estudiante},
+          'actividad':   {S: req.body.actividad}
+        }
+      };
+      
+      ddb.putItem(params, function(err, data) {
+        if (err) {
+            console.log(err);
+            res.send({
+                status: "error"
+            })
+        } else {
+            let paramsres = {
+                TableName: 'notas',
+                Limit: 50 
+            };
+            
+            ddb.scan(paramsres, function(err, data){
+                if(err){
+                    console.log("Error", err);
+                    res.send({
+                        status: "error"
+                    })
+                } else{
+                    res.send({
+                        status: "success",
+                        data: data.Items
+                    })
+                }
+            });
+        }
+      });
 }
 
 //VISUALUZAR NOTA DE ACTIVIDAD

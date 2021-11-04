@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { newstudent } = require('../controller/controller');
+const { newstudent, newcourse, newasignacion, getestudiante, newactivity, newnota, getnota} = require('../controller/controller');
 const router = Router();
 module.exports = router;
 
@@ -7,19 +7,19 @@ module.exports = router;
 router.post('/newstudent', newstudent);
 
 //CURSO NUEVO
-router.post('/newcourse', newstudent);
+router.post('/newcourse', newcourse);
 
 //ASIGNACION DE CURSO
-router.post('/asigcurso', newstudent);
+router.post('/asigcurso', newasignacion);
 
 //VISUALIZAR ESTUDIANTE POR CURSO
-router.get('/getstudentcourse', newstudent);
+router.post('/getstudentcourse', getestudiante);
 
 //REGISTRAR ACTIVIDAD
-router.post('/newactivity', newstudent);
+router.post('/newactivity', newactivity);
 
 //INGRESO NOTA ACTIVIDAD
-router.post('/newnota', newstudent);
+router.post('/newnota', newnota);
 
 //VISUALUZAR NOTA DE ACTIVIDAD
-router.get('/getnota', newstudent);
+router.post('/getnota', getnota);
