@@ -1,29 +1,100 @@
- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#"> Practica 3</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown link
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Agregar Estudiante</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <br>
+      <h4>Datos del Estudiante</h4>
+      <br>
+      <form>
+        <div class="row">
+          <div class="col">
+            <input type="text" class="form-control" name="carnet" [(ngModel)]="carnet" placeholder="Carnet">
           </div>
-        </li>
-      </ul>
+          <div class="col">
+            <input type="text" class="form-control" name="cui" [(ngModel)]="cui" placeholder="CUI">
+          </div>
+        </div>
+        <br>
+        <input type="text" class="form-control" name="nombreusuario" [(ngModel)]="nombreusuario" placeholder="Nombre Completo">
+        <br>
+        <div class="row">
+          <div class="col">
+            <input type="text" class="form-control" name="correo" [(ngModel)]="correo" placeholder="Correo">
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" name="fecha" [(ngModel)]="fecha" placeholder="Fecha">
+          </div>
+        </div>
+        <br>
+        <button type="button" style="width:100%; height:100%; border: 1px solid" (click)="newuser()" class="btn btn-success">Agregar Estudiante</button>
+      </form>
+      <br>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Carnet</th>
+            <th scope="col">CUI</th>
+            <th scope="col">Nombre Completo</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listestudiantes;">
+            <td>{{item.carnet}}</td>
+            <td>{{item.cui}}</td>
+            <td>{{item.nombre}}</td>
+            <td>{{item.correo}}</td>
+            <td>{{item.fechanac}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </nav>  
+
+    <div class="col-sm">
+
+      <br>
+      <h4>Cursos</h4>
+      <br>
+      <form>
+        <div class="row">
+          <div class="col">
+            <input type="text" class="form-control" name="codigo" [(ngModel)]="codigo" placeholder="Codigo">
+          </div>
+        </div>
+        <br>
+        <input type="text" class="form-control" name="nombrecurso" [(ngModel)]="nombrecurso" placeholder="Nombre">
+        <br>
+        <div class="row">
+          <div class="col">
+            <input type="text" class="form-control" name="credn" [(ngModel)]="credn" placeholder="Creditos Necesario">
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" name="credo" [(ngModel)]="credo" placeholder="Creditos Obligatorios">
+          </div>
+        </div>
+        <br>
+        <button type="button" style="width:100%; height:100%; border: 1px solid" (click)="newcourse()" class="btn btn-success">Agregar Curso</button>
+      </form>
+      <br>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Codigo</th>
+            <th scope="col">Curso</th>
+            <th scope="col">Creditos Necesarios</th>
+            <th scope="col">Creditos Obligatorios</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listcursos;">
+            <td>{{item.codigo}}</td>
+            <td>{{item.nombre}}</td>
+            <td>{{item.credn}}</td>
+            <td>{{item.credo}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+  
