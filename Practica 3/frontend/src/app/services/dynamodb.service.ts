@@ -68,7 +68,7 @@ export class DynamodbService {
 
   //CREAR NOTA
   newnota(nota:string, estudiante:string, actividad:string){
-    const url = this.prefijo_url + 'newactivity';
+    const url = this.prefijo_url + 'newnota';
     return this.http.post(url, {
       "nota": nota,
       "estudiante": estudiante,
@@ -79,7 +79,7 @@ export class DynamodbService {
 
   //OBTENER ASIGNACIONES
   getasignaciones(curso:string, estudiante:string){
-    const url = this.prefijo_url + 'newactivity';
+    const url = this.prefijo_url + 'getstudentcourse';
     return this.http.post(url, {
       "curso": curso,
       "estudiante": estudiante
