@@ -39,7 +39,30 @@
   
       <div class="col-sm">
         <br>
-        <h4>Verificacion de asignacion</h4>
+        <h4>Asignaciones por curso</h4>
+        <br>
+        <form>
+          <input type="text" class="form-control" name="cursov" [(ngModel)]="CursoV" placeholder="Codigo de Curso">
+          <br>
+          <button type="button" style="width:100%; height:100%; border: 1px solid" (click)="verasignaciones()" class="btn btn-success">Ver Asignaciones</button>
+        </form>
+        <br>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Curso</th>
+              <th scope="col">Estudiante</th>
+              <th scope="col">Perido</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of listaasignacionv;">
+                <td>{{item.curso}}</td>
+                <td>{{item.estudiante}}</td>
+                <td>{{item.periodo}}</td>
+              </tr>
+          </tbody>
+        </table>
         <br>
       </div>
     </div>

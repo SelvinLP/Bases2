@@ -78,11 +78,19 @@ export class DynamodbService {
   }
 
   //OBTENER ASIGNACIONES
-  getasignaciones(curso:string, estudiante:string){
+  getasignaciones(curso:string){
     const url = this.prefijo_url + 'getstudentcourse';
     return this.http.post(url, {
-      "curso": curso,
-      "estudiante": estudiante
+      "curso": curso
+    }, {headers: this.headers}
+    ).pipe(map( data => data ));
+  }
+
+  //OBTENER NOTAS DE ACTIVIDADES
+  getnotas(actividad:string){
+    const url = this.prefijo_url + 'getnota';
+    return this.http.post(url, {
+      "actividad": actividad
     }, {headers: this.headers}
     ).pipe(map( data => data ));
   }

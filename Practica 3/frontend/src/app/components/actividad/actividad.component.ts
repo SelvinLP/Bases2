@@ -25,7 +25,16 @@ export class ActividadComponent implements OnInit {
   actividad = "";
   nota = "";
   carnet = "";
+
   listanotas = [{
+    nota: "",
+    estudiante: "",
+    actividad: ""
+  }];
+
+  actividadV = "";
+
+  listanotasV = [{
     nota: "",
     estudiante: "",
     actividad: ""
@@ -52,6 +61,20 @@ export class ActividadComponent implements OnInit {
     this.dynamodb.newnota(this.nota, this.carnet, this.actividad).subscribe((res:any) => {
       for(let item of res.data){
         this.listanotas.push(
+          {
+            nota: item.nota.N,
+            estudiante: item.estudiante.N,
+            actividad: item.actividad.S
+          });
+      }   
+    });
+  }
+
+  vernota(){
+    this.listanotasV = [];
+    this.dynamodb.getnotas(this.actividadV).subscribe((res:any) => {
+      for(let item of res.data[0].Items){
+        this.listanotasV.push(
           {
             nota: item.nota.N,
             estudiante: item.estudiante.N,

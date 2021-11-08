@@ -74,6 +74,34 @@
         </table>
       </div>
 
+
+      <div class="col-sm">
+        <br>
+        <h4>Ver notas por actividad</h4>
+        <br>
+        <form>
+          <input type="text" class="form-control" name="actividadV" [(ngModel)]="actividadV" placeholder="Tipo de Actividad">
+          <br>
+          <button type="button" style="width:100%; height:100%; border: 1px solid" (click)="vernota()" class="btn btn-success">Ver notas</button>
+        </form>
+        <br>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Estudiante</th>
+              <th scope="col">Nota</th>
+              <th scope="col">Actividad</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of listanotasV;">
+                <td>{{item.estudiante}}</td>
+                <td>{{item.nota}}</td>
+                <td>{{item.actividad}}</td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
     

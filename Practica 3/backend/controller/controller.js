@@ -132,13 +132,14 @@ const getestudiante = async(req, res) =>{
 
     var params = {
         TableName: 'asignacion',
-        Key: {
-            'curso': {N: req.body.curso},
-            'estudiante': {N: req.body.estudiante}
-        }
+        ExpressionAttributeValues: {
+            ':curso': {N: req.body.curso}
+        },
+        KeyConditionExpression: 'curso = :curso',
+        ProjectionExpression: 'curso, estudiante, periodo',
     };
     
-    ddb.getItem(params, function(err, data) {
+    ddb.query(params, function(err, data) {
         if (err) {
             console.log(err);
             res.send({
@@ -236,9 +237,30 @@ const newnota = async(req, res) =>{
 
 //VISUALUZAR NOTA DE ACTIVIDAD
 const getnota = async(req, res) =>{
-    res.send({
-        status: "success"
-    })
+
+    var params = {
+        TableName: 'notas',
+        ExpressionAttributeValues: {
+            ':actividad': {S: req.body.actividad}
+        },
+        KeyConditionExpression: 'actividad = :actividad',
+        ProjectionExpression: 'nota, estudiante, actividad',
+    };
+    
+    ddb.query(params, function(err, data) {
+        if (err) {
+            console.log(err);
+            res.send({
+                status: "error",
+                data: []
+            })
+        } else {
+            res.send({
+                status: "success",
+                data: [data]
+            })
+        }
+    });
 }
 
 module.exports = {
